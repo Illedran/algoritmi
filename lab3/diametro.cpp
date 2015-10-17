@@ -16,7 +16,7 @@ vector<nodo> grafo;
 
 int diameter(vector<nodo>& grafo, int nodes){
     queue<int> Q;
-	vector<int> maxnode_dist (nodes, 0);
+    vector<int> maxnode_dist (nodes, 0);
     for(int i=0;i<nodes;i++){
 		Q.push(i);
 		grafo[i].visited=true;
