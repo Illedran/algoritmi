@@ -21,10 +21,10 @@ int right(int i){
 
 void maxHeapRestore(vector<int>& A, int idx, int dim){
     int max = idx;
-    if (left(idx)<=dim && A[left(idx)] > A[max]){
+    if (left(idx)<dim && A[left(idx)] > A[max]){
         max = left(idx);
     }
-    if (right(idx)<=dim && A[right(idx)] > A[max]){
+    if (right(idx)<dim && A[right(idx)] > A[max]){
         max = right(idx);
     }
     if (idx != max){
