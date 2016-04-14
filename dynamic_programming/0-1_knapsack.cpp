@@ -4,7 +4,7 @@
 #include <climits>
 #include <algorithm>
 
-void print(std::vector<std::vector<int>> &T, int C) {
+void print(const std::vector<std::vector<int>> &T, int C) {
   for (int j = 0; j <= C; j++) {
     std::cout << T[0][j] << " ";
   }
@@ -16,7 +16,7 @@ void print(std::vector<std::vector<int>> &T, int C) {
 }
 
 
-// P pesi e V valori
+// P weight, V values
 int zaino(const std::vector<int> &P,
           const std::vector<int> &V,
           int i,

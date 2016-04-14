@@ -2,63 +2,64 @@
 #include <fstream>
 #include <vector>
 #include <stack>
+#include "./graph.h"
 
-using namespace std;
 
-struct nodo{
-  vector<int> vic;
-  bool visited;
-};
-
-vector<nodo> grafo;
-
-void print(stack<int> S){
-    while(!S.empty()){
-        cout << S.top() << " ";
-        S.pop();
-    }
-    cout << endl;
+void print(std::stack<int> S) {
+  while (!S.empty()) {
+    std::cout << S.top() << " ";
+    S.pop();
+  }
+  std::cout << std::endl;
 }
 
-void tsdfs(vector<nodo>& grafo, int u, stack<int>& S){
-    grafo[u].visited=true;
-    for(int v: grafo[u].vic){
-        if (grafo[v].visited==false){
-            grafo[v].visited=true;
-            tsdfs(grafo, v, S);
-        }
+// Top sort depth-first search
+void tsdfs(std::vector<node> &graph, int node_id, std::stack<int> &S) {
+  graph[node_id].visited = true;
+  for (int v: graph[node_id].neighbors) {
+    if (!graph[v].visited) {
+      graph[v].visited = true;
+      tsdfs(graph, v, S);
     }
-    S.push(u);
+  }
+  S.push(node_id);
 }
 
-stack<int> topSort(vector<nodo>& grafo, int N, ofstream& out){
-    for(int i=0; i<N; i++){
-        grafo[i].visited=false;
+std::stack<int> topSort(std::vector<node> &graph, int N, std::ofstream &out) {
+  for (int i = 0; i < N; i++) {
+    graph[i].visited = false;
+  }
+  std::stack<int> topological_order;
+  for (int i = 0; i < N; i++) {
+    if (!graph[i].visited) {
+      tsdfs(graph, i, topological_order);
     }
-    stack<int> S;
-    for(int i=0; i<N; i++){
-        if(!grafo[i].visited){
-            tsdfs(grafo, i, S);
-        }
-    }
-    return S;
+  }
+  return topological_order;
 }
 
-int main(){
-  ifstream in("input.txt");
-  ofstream out("output.txt");
-  int N,M;
-  in>>N>>M;
-  grafo.resize(N);
-  for(int i=0;i<M;i++){
+// N nodes, M edges
+// Input format:
+// N M
+// <list of edges>
+
+int main() {
+  std::ifstream in("input.txt");
+  std::ofstream out("output.txt");
+  int N, M;
+  in >> N >> M;
+  std::vector<node> graph(N);
+  for (int i = 0; i < M; i++) {
     int from, to;
-    in>>from>>to;
-    grafo[from].vic.push_back(to);
+    in >> from >> to;
+    graph[from].neighbors.push_back(to);
   }
-  stack<int> S = topSort(grafo, N, out);
-  while(!S.empty()){
-        out << S.top() << " ";
-        S.pop();
+  std::stack<int> topological_order = topSort(graph, N, out);
+  while (!topological_order.empty()) {
+    out << topological_order.top() << " ";
+    topological_order.pop();
   }
+  out.close();
+  in.close();
   return 0;
 }

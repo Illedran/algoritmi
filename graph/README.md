@@ -1,9 +1,9 @@
 # graph
 
-diametro: calculates the highest distance between each pair of vertices in a graph
+diameter: Calculates the highest distance between each pair of vertices in a graph.
 
-numcammini: calculates the number of paths between two vertices(not edge-disjoint)
+num_min_paths: Calculates the number of paths with minimum length between two vertices.
 
-toporder: generates topological order of vertices in graph
+toporder: Generates topological order of vertices in graph.
 
-visita: dfs/bfs
+graph_visit: Visits a graph using depth or breadth first search. Returns number of visited nodes.
